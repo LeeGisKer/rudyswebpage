@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="40" viewBox="0 0 160 40" role="img" aria-label="Rudy Construction Co.">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#eab308"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="8" width="44" height="24" rx="4" fill="url(#g)"/>
+  <path d="M6 26 L18 14 L22 18 L30 10 L38 18" fill="none" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
+  <g fill="#0f172a" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial" font-size="12" font-weight="700">
+    <text x="52" y="18">RUDY CONSTRUCTION</text>
+    <text x="52" y="32" font-size="9" font-weight="600" fill="#475569">Quality builds & renovations</text>
+  </g>
+</svg>
+
