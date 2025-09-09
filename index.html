@@ -3,11 +3,68 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Rudy Construction Co. — quality construction and remodeling. View our projects, client testimonials, and contact details." />
-  <title>Rudy Construction Co. — Portfolio</title>
-  <link rel="preload" href="style.css" as="style" />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Rudy Construction Co. &mdash; quality construction and remodeling. View our projects, client testimonials, and contact details." />
+  <title>Rudy Construction Co. &mdash; Portfolio</title>
+  <style>
+  /* Critical CSS: header + hero */
+  :root { color-scheme: light dark; --bg:#ffffff; --surface:#f8fafc; --card:#ffffff; --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --brand:#f59e0b; --brand-ink:#1f2937; --radius:12px; --shadow:0 1px 2px rgba(15,23,42,.06), 0 6px 20px rgba(15,23,42,.06); }
+  @media (prefers-color-scheme: dark){ :root { --bg:#0b1220; --surface:#0f172a; --card:#111827; --ink:#e5e7eb; --muted:#94a3b8; --line:#1f2937; --brand:#f59e0b; --brand-ink:#111827; } }
+  *{ box-sizing:border-box }
+  body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; line-height:1.6; color:var(--ink); background:var(--bg); text-rendering:optimizeLegibility }
+  img{ max-width:100%; display:block; height:auto }
+  a{ color:inherit; text-decoration:none }
+  a:hover{ text-decoration:underline; text-underline-offset:2px }
+  .container{ width:100%; max-width:1120px; margin:0 auto; padding:0 16px }
+  .section{ padding:56px 0 }
+  .h1{ font-size:clamp(1.6rem, 2.2vw + 1rem, 2.25rem); line-height:1.2; margin:0 0 8px }
+  .lead{ font-size:1.05rem; color:var(--muted); margin:8px 0 16px }
+  .bullets{ padding:0; margin:16px 0 0; list-style:none; display:grid; gap:8px }
+  .bullets li{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:10px 12px }
+  .site-header{ position:sticky; top:0; z-index:10; background:var(--bg); border-bottom:1px solid var(--line) }
+  .header-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0 }
+  .brand img{ height:40px; width:auto }
+  .site-nav{ display:flex; gap:10px; align-items:center }
+  .site-nav a{ padding:8px 10px; border-radius:8px; color:var(--ink) }
+  .site-nav a:hover{ background:var(--surface); text-decoration:none }
+  .btn{ display:inline-block; padding:10px 14px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--ink); min-height:44px }
+  .btn-accent{ background:var(--brand); color:var(--brand-ink); border-color:#eab308 }
+  </style>
+  <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="style.css"></noscript>
   <meta name="theme-color" content="#0f172a" />
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Rudy Construction Co. &mdash; Portfolio" />
+  <meta property="og:description" content="Quality construction and remodeling. View projects, testimonials, and contact details." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <!-- Analytics toggles (set your values) -->
+  <meta name="analytics:plausible-domain" content="" />
+  <meta name="analytics:ga4-id" content="" />
+  <!-- CSP: allows analytics when configured -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://plausible.io https://www.googletagmanager.com; connect-src 'self' https://plausible.io https://www.google-analytics.com https://region1.google-analytics.com; form-action 'self';" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    "name": "Rudy Construction Co.",
+    "url": "",
+    "logo": "assets/logo.svg",
+    "image": "assets/logo.svg",
+    "email": "hello@rudyconstruction.example",
+    "telephone": "+1-555-123-4567",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "101 Main Street, Suite 200",
+      "addressLocality": "Minneapolis",
+      "addressRegion": "MN",
+      "postalCode": "",
+      "addressCountry": "US"
+    },
+    "areaServed": ["Minneapolis", "St. Paul", "Metro Area"],
+    "sameAs": []
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -31,9 +88,9 @@
     <section id="about" class="section">
       <div class="container">
         <h1 class="h1">Rudy Construction Co.</h1>
-        <p class="lead">We build and renovate residential and light commercial spaces with craftsmanship, transparency, and on‑time delivery across the metro area.</p>
+        <p class="lead">We build and renovate residential and light commercial spaces with craftsmanship, transparency, and on-time delivery across the metro area.</p>
         <ul class="bullets">
-          <li><strong>Licensed & Insured:</strong> Residential + light commercial</li>
+          <li><strong>Licensed &amp; Insured:</strong> Residential + light commercial</li>
           <li><strong>On-Time:</strong> Clear schedules, daily site updates</li>
           <li><strong>Quality:</strong> Trusted trades, durable materials, clean finishes</li>
         </ul>
@@ -58,8 +115,8 @@
             </figure>
             <div class="card-body">
               <h3 class="h3">Maple Grove Kitchen Remodel</h3>
-              <p>Full gut renovation: new layout, custom cabinetry, quartz counters, and energy‑efficient lighting.</p>
-              <p class="meta"><time datetime="2024-06">Jun 2024</time> • 8 weeks</p>
+              <p>Full gut renovation: new layout, custom cabinetry, quartz counters, and energy-efficient lighting.</p>
+              <p class="meta"><time datetime="2024-06">Jun 2024</time> &middot; 8 weeks</p>
             </div>
           </article>
 
@@ -73,8 +130,8 @@
             </figure>
             <div class="card-body">
               <h3 class="h3">North Loop Bath Refresh</h3>
-              <p>Curbless shower, large‑format porcelain tile, matte black fixtures, waterproof LED niche lighting.</p>
-              <p class="meta"><time datetime="2024-02">Feb 2024</time> • 3 weeks</p>
+              <p>Curbless shower, large-format porcelain tile, matte black fixtures, waterproof LED niche lighting.</p>
+              <p class="meta"><time datetime="2024-02">Feb 2024</time> &middot; 3 weeks</p>
             </div>
           </article>
 
@@ -88,8 +145,8 @@
             </figure>
             <div class="card-body">
               <h3 class="h3">Cedar Deck Addition</h3>
-              <p>New 12×18 deck with helical pier footings, cedar railings, and low‑glare step lighting.</p>
-              <p class="meta"><time datetime="2023-09">Sep 2023</time> • 2 weeks</p>
+              <p>New 12&times;18 ft deck with helical pier footings, cedar railings, and low-glare step lighting.</p>
+              <p class="meta"><time datetime="2023-09">Sep 2023</time> &middot; 2 weeks</p>
             </div>
           </article>
 
@@ -102,14 +159,14 @@
                 width="1200" height="675" loading="lazy" decoding="async" />
             </figure>
             <div class="card-body">
-              <h3 class="h3">Studio TI Build‑Out</h3>
+              <h3 class="h3">Studio TI Build-Out</h3>
               <p>Open office TI: new glass partitions, acoustical treatment, and polished concrete floors.</p>
-              <p class="meta"><time datetime="2023-05">May 2023</time> • 5 weeks</p>
+              <p class="meta"><time datetime="2023-05">May 2023</time> &middot; 5 weeks</p>
             </div>
           </article>
         </div>
 
-        <p class="muted small" style="margin-top:1rem">Tip: Replace placeholders by saving 1200–1600px wide photos at ~70–80% quality (70–200 KB). Prefer <code>.webp</code>. Add <code>loading="lazy"</code> and width/height.</p>
+          <p class="muted small" style="margin-top:1rem">Tip: Replace placeholders by saving 1200&ndash;1600px wide photos at ~70&ndash;80% quality (70&ndash;200 KB). Prefer <code>.webp</code>. Add <code>loading=&quot;lazy&quot;</code> and width/height.</p>
       </div>
     </section>
 
@@ -120,16 +177,16 @@
         </div>
         <div class="grid testimonials">
           <blockquote class="quote">
-            <p>“Rudy’s team finished exactly on schedule and the kitchen looks incredible. Clean crew, great communication.”</p>
-            <footer>— A. Nguyen, Maple Grove</footer>
+            <p>"Rudy's team finished exactly on schedule and the kitchen looks incredible. Clean crew, great communication."</p>
+            <footer>&mdash; A. Nguyen, Maple Grove</footer>
           </blockquote>
           <blockquote class="quote">
-            <p>“Transparent bids and no surprises. The deck came out better than we imagined. Highly recommend.”</p>
-            <footer>— S. Patel, Eden Prairie</footer>
+            <p>"Transparent bids and no surprises. The deck came out better than we imagined. Highly recommend."</p>
+            <footer>&mdash; S. Patel, Eden Prairie</footer>
           </blockquote>
           <blockquote class="quote">
-            <p>“Professional from day one. They coordinated subs flawlessly and kept the workspace tidy every night.”</p>
-            <footer>— J. Morales, Minneapolis</footer>
+            <p>"Professional from day one. They coordinated subs flawlessly and kept the workspace tidy every night."</p>
+            <footer>&mdash; J. Morales, Minneapolis</footer>
           </blockquote>
         </div>
       </div>
@@ -141,26 +198,26 @@
           <h2 class="h2">Get in Touch</h2>
           <p class="lead">Tell us about your project for a free estimate.</p>
           <ul class="contact-list">
-            <li><strong>Phone:</strong> <a href="tel:+15551234567">(555) 123‑4567</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+15551234567">(555) 123-4567</a></li>
             <li><strong>Email:</strong> <a href="mailto:hello@rudyconstruction.example">hello@rudyconstruction.example</a></li>
             <li><strong>Address:</strong> 101 Main Street, Suite 200, Minneapolis, MN</li>
-            <li><strong>Hours:</strong> Mon–Fri 8:00–5:00</li>
+            <li><strong>Hours:</strong> Mon&ndash;Fri 8:00&ndash;5:00</li>
           </ul>
-          <p class="muted small">If the form isn’t available offline, call or email directly.</p>
+          <p class="muted small">If the form isn't available offline, call or email directly.</p>
         </div>
 
         <form class="contact-form" method="post" action="/send" autocomplete="on">
           <div class="field">
             <label for="name">Name</label>
-            <input id="name" name="name" type="text" required placeholder="Your full name" />
+            <input id="name" name="name" type="text" autocomplete="name" required placeholder="Your full name" />
           </div>
           <div class="field">
             <label for="email">Email</label>
-            <input id="email" name="email" type="email" required placeholder="you@example.com" />
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
           </div>
           <div class="field">
             <label for="phone">Phone</label>
-            <input id="phone" name="phone" type="tel" placeholder="(555) 123‑4567" />
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" />
           </div>
           <div class="field">
             <label for="message">Project details</label>
@@ -170,7 +227,7 @@
             <button class="btn btn-accent" type="submit">Send Request</button>
             <a class="btn" href="mailto:hello@rudyconstruction.example?subject=Project%20Inquiry">Email Instead</a>
           </div>
-          <p class="muted small">Note: This static form expects a server at <code>/send</code>. See deployment options below to enable it via Flask, or use the Email button.</p>
+          <p class="muted small">Note: This static form expects a server at <code>/send</code>. Use the Email button or configure a simple backend/service to handle submissions.</p>
         </form>
       </div>
     </section>
@@ -178,13 +235,88 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <small>© 2025 Rudy Construction Co. All rights reserved.</small>
-      <div class="social">
-        <a href="#" aria-label="Instagram">Instagram</a>
-        <a href="#" aria-label="LinkedIn">LinkedIn</a>
-      </div>
+      <small>&copy; 2025 Rudy Construction Co. All rights reserved.</small>
+    <div class="social">
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="LinkedIn">LinkedIn</a>
     </div>
+  </div>
   </footer>
+
+  <!-- Lightweight analytics + conversion tracking -->
+  <script>
+  (function(){
+    var metaPlausible = document.querySelector('meta[name="analytics:plausible-domain"]');
+    var metaGA4 = document.querySelector('meta[name="analytics:ga4-id"]');
+    var plausibleDomain = metaPlausible && metaPlausible.content ? metaPlausible.content.trim() : '';
+    var ga4Id = metaGA4 && metaGA4.content ? metaGA4.content.trim() : '';
+
+    function onReady(fn){
+      if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn, { once: true });
+      else fn();
+    }
+
+    // Load Plausible if configured
+    if (plausibleDomain) {
+      var ps = document.createElement('script');
+      ps.defer = true;
+      ps.setAttribute('data-domain', plausibleDomain);
+      ps.src = 'https://plausible.io/js/script.js';
+      document.head.appendChild(ps);
+    }
+
+    // Load GA4 if configured
+    if (ga4Id) {
+      var gs = document.createElement('script');
+      gs.async = true;
+      gs.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(ga4Id);
+      document.head.appendChild(gs);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', ga4Id);
+    }
+
+    onReady(function(){
+      var form = document.querySelector('form.contact-form');
+      var phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+      var emailLinks = document.querySelectorAll('a[href^="mailto:"]');
+
+      function sendEvent(name, params){
+        if (window.plausible) { try { window.plausible(name, { props: params || {} }); } catch(_){} }
+        if (window.gtag) { try { window.gtag('event', name, params || {}); } catch(_){} }
+      }
+
+      if (form) {
+        form.addEventListener('submit', function(){
+          // GA4 recommended event
+          sendEvent('generate_lead', { form_id: 'contact_form' });
+          // Plausible friendly label
+          sendEvent('Lead Form Submit', { form_id: 'contact_form' });
+        });
+      }
+
+      function text(el){ return (el.textContent || '').trim(); }
+
+      phoneLinks.forEach(function(a){
+        a.addEventListener('click', function(){
+          var href = a.getAttribute('href');
+          sendEvent('phone_click', { link_url: href, link_text: text(a) });
+          sendEvent('Phone Click', { link_url: href, link_text: text(a) });
+        });
+      });
+
+      emailLinks.forEach(function(a){
+        a.addEventListener('click', function(){
+          var href = a.getAttribute('href');
+          sendEvent('email_click', { link_url: href, link_text: text(a) });
+          sendEvent('Email Click', { link_url: href, link_text: text(a) });
+        });
+      });
+    });
+  })();
+  </script>
 
 </body>
 </html>
