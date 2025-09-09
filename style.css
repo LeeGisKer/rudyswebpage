@@ -49,11 +49,16 @@ body {
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 
 img { max-width: 100%; display: block; height: auto; }
 a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 2px; }
+/* Animated underline for nav */
+.site-nav a { position: relative; }
+.site-nav a::after { content: ""; position: absolute; left: 8px; right: 8px; bottom: 6px; height: 2px; background: var(--brand); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+.site-nav a:hover::after, .site-nav a:focus-visible::after { transform: scaleX(1); }
 /* Visible focus outlines for keyboard users */
 a:focus-visible,
 button:focus-visible,
@@ -88,8 +93,9 @@ button:focus-visible,
 .site-nav a { padding: 8px 10px; border-radius: 8px; color: var(--ink); }
 .site-nav a:hover { background: var(--surface); text-decoration: none; }
 
-.btn { display: inline-block; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); min-height: 44px; }
-.btn:hover { filter: brightness(1.05); text-decoration: none; }
+.btn { display: inline-block; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); min-height: 44px; transition: transform .2s ease, filter .2s ease, box-shadow .2s ease; }
+.btn:hover { filter: brightness(1.05); text-decoration: none; box-shadow: 0 4px 14px rgba(15,23,42,.1); }
+.btn:active { transform: translateY(1px); }
 .btn-accent { background: var(--brand); color: var(--brand-ink); border-color: #eab308; }
 .btn-accent:hover { filter: brightness(.98); }
 
@@ -100,9 +106,11 @@ button:focus-visible,
 @media (min-width: 640px) { .projects { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 960px) { .projects { grid-template-columns: repeat(3, 1fr); } }
 
-.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: clip; box-shadow: var(--shadow); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: clip; box-shadow: var(--shadow); transition: transform .25s ease, box-shadow .25s ease; will-change: transform; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(15,23,42,.12); }
 .media { aspect-ratio: 16/9; overflow: hidden; background: #eee; }
-.media img { width: 100%; height: 100%; object-fit: cover; }
+.media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.22,1,.36,1); will-change: transform; }
+.card:hover .media img { transform: scale(1.03); }
 .card-body { padding: 12px; }
 .meta { color: var(--muted); font-size: .95rem; margin: 6px 0 0; }
 
@@ -131,6 +139,13 @@ button:focus-visible,
 .field input:focus,
 .field textarea:focus { outline: 2px solid var(--brand); border-color: var(--brand); background: var(--bg); }
 .actions { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Honeypot field: visually hidden for humans, present in DOM for naive bots */
+.hp { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
+
+/* Scroll reveal (JS-enhanced). Hidden only when JS is available */
+.js .reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); will-change: opacity, transform; }
+.js .reveal.in { opacity: 1; transform: none; }
 
 /* Footer */
 .site-footer { border-top: 1px solid var(--line); padding: 16px 0; background: var(--surface); }

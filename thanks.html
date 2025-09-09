@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank You &mdash; Rudy Construction Co.</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="style.css"></noscript>
+  <!-- Reuse analytics toggles from index (if set) -->
+  <meta name="analytics:plausible-domain" content="" />
+  <meta name="analytics:ga4-id" content="" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="/" class="brand" aria-label="Rudy Construction Co. home">
+        <img src="assets/logo.svg" width="160" height="40" alt="Rudy Construction Co." />
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/index.html#projects">Projects</a>
+        <a href="/index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="section reveal">
+      <div class="container">
+        <h1 class="h1">Thank you for your request</h1>
+        <p class="lead">We received your message and will contact you shortly.</p>
+        <div class="actions">
+          <a class="btn btn-accent" href="/index.html#projects">View Projects</a>
+          <a class="btn" href="/">Go Home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <small>&copy; 2025 Rudy Construction Co. All rights reserved.</small>
+      <div class="social">
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Minimal analytics loader + success event -->
+  <script>
+  (function(){
+    var plausibleDomain = (document.querySelector('meta[name="analytics:plausible-domain"]')||{}).content||'';
+    var ga4Id = (document.querySelector('meta[name="analytics:ga4-id"]')||{}).content||'';
+    if (plausibleDomain) { var ps=document.createElement('script'); ps.defer=true; ps.setAttribute('data-domain', plausibleDomain); ps.src='https://plausible.io/js/script.js'; document.head.appendChild(ps); }
+    if (ga4Id) { var gs=document.createElement('script'); gs.async=true; gs.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(ga4Id); document.head.appendChild(gs); window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);} window.gtag=gtag; gtag('js', new Date()); gtag('config', ga4Id); }
+    function sendEvent(name, params){ if(window.plausible){try{window.plausible(name,{props:params||{}})}catch(_){}} if(window.gtag){try{window.gtag('event',name,params||{})}catch(_){}} }
+    // Fire a success event when this page loads
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', function(){ sendEvent('lead_success'); sendEvent('Lead Success'); }, {once:true}); }
+    else { sendEvent('lead_success'); sendEvent('Lead Success'); }
+    // Simple reveal on load
+    function revealNow(){ document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); }); }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries, obs){
+        entries.forEach(function(entry){ if(entry.isIntersecting){ entry.target.classList.add('in'); obs.unobserve(entry.target);} });
+      }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+      document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+    } else {
+      revealNow();
+    }
+  })();
+  </script>
+</body>
+</html>

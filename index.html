@@ -38,6 +38,7 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <script>document.documentElement.classList.add('js');</script>
   <!-- Analytics toggles (set your values) -->
   <meta name="analytics:plausible-domain" content="" />
   <meta name="analytics:ga4-id" content="" />
@@ -70,7 +71,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
-    <div class="container header-inner">
+      <div class="container header-inner reveal">
       <a href="#top" class="brand" aria-label="Rudy Construction Co. home">
         <img src="assets/logo.svg" width="160" height="40" alt="Rudy Construction Co." loading="eager" decoding="sync" />
       </a>
@@ -87,9 +88,9 @@
   <main id="main" tabindex="-1">
     <section id="about" class="section">
       <div class="container">
-        <h1 class="h1">Rudy Construction Co.</h1>
-        <p class="lead">We build and renovate residential and light commercial spaces with craftsmanship, transparency, and on-time delivery across the metro area.</p>
-        <ul class="bullets">
+        <h1 class="h1 reveal">Rudy Construction Co.</h1>
+        <p class="lead reveal">We build and renovate residential and light commercial spaces with craftsmanship, transparency, and on-time delivery across the metro area.</p>
+        <ul class="bullets reveal">
           <li><strong>Licensed &amp; Insured:</strong> Residential + light commercial</li>
           <li><strong>On-Time:</strong> Clear schedules, daily site updates</li>
           <li><strong>Quality:</strong> Trusted trades, durable materials, clean finishes</li>
@@ -99,14 +100,14 @@
 
     <section id="projects" class="section alt">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
           <h2 class="h2">Project Gallery</h2>
           <p class="muted">A few recent builds and renovations. Images are lightweight placeholders — replace with your photos (WebP/JPG).</p>
         </div>
 
         <div class="grid projects">
           <!-- Project Card 1 -->
-          <article class="card project">
+          <article class="card project reveal">
             <figure class="media">
               <img
                 src="data:image/webp;base64,UklGRlYAAABXRUJQVlA4TCEAAAAvAQCdASoEAAkAPm0mAA/vAA=="
@@ -121,7 +122,7 @@
           </article>
 
           <!-- Project Card 2 -->
-          <article class="card project">
+          <article class="card project reveal">
             <figure class="media">
               <img
                 src="data:image/webp;base64,UklGRlYAAABXRUJQVlA4TCEAAAAvAQCdASoEAAkAPm0mAA/vAA=="
@@ -136,7 +137,7 @@
           </article>
 
           <!-- Project Card 3 -->
-          <article class="card project">
+          <article class="card project reveal">
             <figure class="media">
               <img
                 src="data:image/webp;base64,UklGRlYAAABXRUJQVlA4TCEAAAAvAQCdASoEAAkAPm0mAA/vAA=="
@@ -151,7 +152,7 @@
           </article>
 
           <!-- Project Card 4 -->
-          <article class="card project">
+          <article class="card project reveal">
             <figure class="media">
               <img
                 src="data:image/webp;base64,UklGRlYAAABXRUJQVlA4TCEAAAAvAQCdASoEAAkAPm0mAA/vAA=="
@@ -172,19 +173,19 @@
 
     <section id="testimonials" class="section">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
           <h2 class="h2">Client Testimonials</h2>
         </div>
         <div class="grid testimonials">
-          <blockquote class="quote">
+          <blockquote class="quote reveal">
             <p>"Rudy's team finished exactly on schedule and the kitchen looks incredible. Clean crew, great communication."</p>
             <footer>&mdash; A. Nguyen, Maple Grove</footer>
           </blockquote>
-          <blockquote class="quote">
+          <blockquote class="quote reveal">
             <p>"Transparent bids and no surprises. The deck came out better than we imagined. Highly recommend."</p>
             <footer>&mdash; S. Patel, Eden Prairie</footer>
           </blockquote>
-          <blockquote class="quote">
+          <blockquote class="quote reveal">
             <p>"Professional from day one. They coordinated subs flawlessly and kept the workspace tidy every night."</p>
             <footer>&mdash; J. Morales, Minneapolis</footer>
           </blockquote>
@@ -194,7 +195,7 @@
 
     <section id="contact" class="section alt">
       <div class="container contact">
-        <div class="contact-info">
+        <div class="contact-info reveal">
           <h2 class="h2">Get in Touch</h2>
           <p class="lead">Tell us about your project for a free estimate.</p>
           <ul class="contact-list">
@@ -206,7 +207,12 @@
           <p class="muted small">If the form isn't available offline, call or email directly.</p>
         </div>
 
-        <form class="contact-form" method="post" action="/send" autocomplete="on">
+        <form class="contact-form reveal" method="post" action="/send" autocomplete="on">
+          <!-- Honeypot field: real users won't see/fill this -->
+          <div class="field hp" aria-hidden="true">
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" tabindex="-1" autocomplete="organization" placeholder="Company" />
+          </div>
           <div class="field">
             <label for="name">Name</label>
             <input id="name" name="name" type="text" autocomplete="name" required placeholder="Your full name" />
@@ -234,7 +240,7 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
+    <div class="container footer-inner reveal">
       <small>&copy; 2025 Rudy Construction Co. All rights reserved.</small>
     <div class="social">
       <a href="#" aria-label="Instagram">Instagram</a>
@@ -315,6 +321,23 @@
         });
       });
     });
+  })();
+  </script>
+
+  <!-- Scroll-reveal animations (lightweight) -->
+  <script>
+  (function(){
+    function revealNow(){ document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); }); }
+    if (!('IntersectionObserver' in window)) { revealNow(); return; }
+    var io = new IntersectionObserver(function(entries, obs){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   })();
   </script>
 
