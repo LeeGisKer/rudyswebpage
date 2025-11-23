@@ -7,6 +7,9 @@
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="style.css"></noscript>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap">
   <!-- Reuse analytics toggles from index (if set) -->
   <meta name="analytics:plausible-domain" content="" />
   <meta name="analytics:ga4-id" content="" />
@@ -51,25 +54,73 @@
 
   <!-- Minimal analytics loader + success event -->
   <script>
-  (function(){
-    var plausibleDomain = (document.querySelector('meta[name="analytics:plausible-domain"]')||{}).content||'';
-    var ga4Id = (document.querySelector('meta[name="analytics:ga4-id"]')||{}).content||'';
-    if (plausibleDomain) { var ps=document.createElement('script'); ps.defer=true; ps.setAttribute('data-domain', plausibleDomain); ps.src='https://plausible.io/js/script.js'; document.head.appendChild(ps); }
-    if (ga4Id) { var gs=document.createElement('script'); gs.async=true; gs.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(ga4Id); document.head.appendChild(gs); window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);} window.gtag=gtag; gtag('js', new Date()); gtag('config', ga4Id); }
-    function sendEvent(name, params){ if(window.plausible){try{window.plausible(name,{props:params||{}})}catch(_){}} if(window.gtag){try{window.gtag('event',name,params||{})}catch(_){}} }
-    // Fire a success event when this page loads
-    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', function(){ sendEvent('lead_success'); sendEvent('Lead Success'); }, {once:true}); }
-    else { sendEvent('lead_success'); sendEvent('Lead Success'); }
-    // Simple reveal on load
-    function revealNow(){ document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); }); }
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function(entries, obs){
-        entries.forEach(function(entry){ if(entry.isIntersecting){ entry.target.classList.add('in'); obs.unobserve(entry.target);} });
-      }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
-      document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-    } else {
-      revealNow();
+  (() => {
+    const meta = (name) => {
+      const el = document.querySelector(`meta[name="${name}"]`);
+      return (el && el.content ? el.content : '').trim();
+    };
+    const config = {
+      plausibleDomain: meta('analytics:plausible-domain'),
+      ga4Id: meta('analytics:ga4-id'),
+    };
+
+    if (config.plausibleDomain) {
+      const script = document.createElement('script');
+      script.defer = true;
+      script.dataset.domain = config.plausibleDomain;
+      script.src = 'https://plausible.io/js/script.js';
+      document.head.appendChild(script);
     }
+
+    if (config.ga4Id) {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(config.ga4Id)}`;
+      document.head.appendChild(script);
+      window.dataLayer = window.dataLayer || [];
+      const gtag = (...args) => window.dataLayer.push(args);
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', config.ga4Id);
+    }
+
+    const sendEvent = (name, params = {}) => {
+      if (window.plausible) {
+        try { window.plausible(name, { props: params }); } catch (_) {}
+      }
+      if (window.gtag) {
+        try { window.gtag('event', name, params); } catch (_) {}
+      }
+    };
+
+    const onReady = (fn) => {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fn, { once: true });
+      } else {
+        fn();
+      }
+    };
+
+    const startReveal = () => {
+      const apply = (el) => el.classList.add('in');
+      const revealNow = () => document.querySelectorAll('.reveal').forEach(apply);
+      if (!('IntersectionObserver' in window)) { revealNow(); return; }
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            apply(entry.target);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    };
+
+    onReady(() => {
+      sendEvent('lead_success');
+      sendEvent('Lead Success');
+      startReveal();
+    });
   })();
   </script>
 </body>
