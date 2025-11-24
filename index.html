@@ -16,7 +16,9 @@
   a{ color:inherit; text-decoration:none }
   a:hover{ text-decoration:underline; text-underline-offset:3px }
   .container{ width:100%; max-width:1120px; margin:0 auto; padding:0 16px }
+  @media (max-width:640px){ .container{ padding:0 14px } }
   .section{ padding:56px 0 }
+  @media (max-width:640px){ .section{ padding:44px 0 } }
   .h1{ font-size:clamp(1.7rem, 2.2vw + 1rem, 2.4rem); line-height:1.18; margin:0 0 8px; letter-spacing:-0.01em }
   .lead{ font-size:1.05rem; color:var(--muted); margin:8px 0 16px }
   .bullets{ padding:0; margin:16px 0 0; list-style:none; display:grid; gap:10px }
@@ -27,6 +29,12 @@
   .site-nav{ display:flex; gap:10px; align-items:center }
   .site-nav a{ padding:9px 12px; border-radius:10px; color:var(--ink); font-weight:600; letter-spacing:0.01em }
   .site-nav a:hover{ background:var(--surface); text-decoration:none; box-shadow:0 8px 24px rgba(15,23,42,.06) }
+  @media (max-width:720px){
+    .header-inner{ flex-wrap:wrap; gap:10px }
+    .brand img{ height:38px }
+    .site-nav{ width:100%; justify-content:center; flex-wrap:wrap; gap:8px }
+    .site-nav a{ flex:1 1 46%; text-align:center; min-width:120px }
+  }
   .btn{ display:inline-block; padding:11px 15px; border-radius:12px; border:1px solid var(--line); background:var(--card); color:var(--ink); min-height:44px; font-weight:700; box-shadow:0 8px 22px rgba(15,23,42,.06); }
   .btn-accent{ background:var(--brand); color:var(--brand-ink); border-color:#eab308; box-shadow:0 10px 28px rgba(245,158,11,.25) }
   </style>
@@ -57,7 +65,6 @@
     "logo": "assets/logo.svg",
     "image": "assets/logo.svg",
     "email": "hello@rudyconstruction.example",
-    "telephone": "+1-555-123-4567",
     "areaServed": ["Minneapolis", "St. Paul", "Metro Area"],
     "sameAs": []
   }
@@ -87,7 +94,7 @@
         <h1 class="h1 reveal">Rudy Construction Co.</h1>
         <p class="lead reveal">We build and renovate residential and light commercial spaces with craftsmanship, transparency, and on-time delivery across the metro area.</p>
         <ul class="bullets reveal">
-          <li><strong>Licensed &amp; Insured:</strong> Residential + light commercial</li>
+          <li><strong>Independent Contractor:</strong> Not state-licensed; permit work coordinated with licensed partners</li>
           <li><strong>On-Time:</strong> Clear schedules, daily site updates</li>
           <li><strong>Quality:</strong> Trusted trades, durable materials, clean finishes</li>
         </ul>
@@ -195,12 +202,12 @@
           <h2 class="h2">Get in Touch</h2>
           <p class="lead">Tell us about your project for a free estimate.</p>
           <ul class="contact-list">
-            <li><strong>Phone:</strong> <a href="tel:+15551234567">(555) 123-4567</a></li>
             <li><strong>Email:</strong> <a href="mailto:hello@rudyconstruction.example">hello@rudyconstruction.example</a></li>
             <li><strong>Service area:</strong> Minneapolis, St. Paul, metro region</li>
             <li><strong>Hours:</strong> Mon&ndash;Fri 8:00&ndash;5:00</li>
+            <li><strong>Licensing:</strong> Independent contractor; not state-licensed. Permits handled through licensed partners.</li>
           </ul>
-          <p class="muted small">If the form isn't available offline, call or email directly.</p>
+          <p class="muted small">If the form isn't available offline, email directly.</p>
         </div>
 
         <form class="contact-form reveal" method="post" action="/send" autocomplete="on">
@@ -219,7 +226,7 @@
           </div>
           <div class="field">
             <label for="phone">Phone</label>
-            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" />
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Optional (for scheduling calls)" />
           </div>
           <div class="field">
             <label for="message">Project details</label>
