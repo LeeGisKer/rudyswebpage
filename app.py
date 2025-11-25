@@ -2,10 +2,13 @@ from __future__ import annotations
 
 import os
 import smtplib
+from collections import deque
 from dataclasses import dataclass
 from email.message import EmailMessage
 from functools import lru_cache
+from time import monotonic
 from typing import Iterable
+from urllib.parse import urlparse
 
 from flask import Flask, Response, abort, redirect, request, url_for
 
@@ -19,6 +22,8 @@ except Exception:
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024  # keep form posts tiny
+app.config['RATELIMIT_MAX'] = int(os.environ.get('FORM_MAX_SUBMISSIONS_PER_HOUR', '5'))
+app.config['RATELIMIT_WINDOW'] = 60 * 60  # seconds
 
 
 def _env(name: str, default: str | None = None) -> str | None:
@@ -30,11 +35,15 @@ def _clean_header_value(raw: str, limit: int = 255) -> str:
     """
     Prevent header injection and trim excessively long user input.
     """
+    if len(raw) > limit * 4:
+        raise ValueError('field too long')
     cleaned = raw.replace('\r', ' ').replace('\n', ' ').strip()
     return cleaned[:limit]
 
 
 def _clean_message(raw: str, limit: int = 5000) -> str:
+    if len(raw) > limit * 4:
+        raise ValueError('message too long')
     cleaned = raw.replace('\r\n', '\n').replace('\r', '\n').strip()
     return cleaned[:limit]
 
@@ -83,6 +92,7 @@ class MailConfig:
 
 
 _config_missing_logged = False
+_rate_limits: dict[str, deque[float]] = {}
 
 
 def get_mail_config() -> MailConfig | None:
@@ -134,6 +144,38 @@ def send_email(name: str, email: str, phone: str | None, message: str) -> None:
         app.logger.info('Lead email sent to %s', msg['To'])
 
 
+def _same_origin() -> bool:
+    """
+    Basic CSRF guard: if Origin/Referer exist, require they match this host.
+    """
+    host = request.host_url.rstrip('/')
+    origin = request.headers.get('Origin')
+    referer = request.headers.get('Referer')
+    header_url = origin or referer
+    if not header_url:
+        return True  # some clients omit; accept but still rate-limit
+    try:
+        parsed = urlparse(header_url)
+    except Exception:
+        return False
+    return header_url.startswith(host) or (
+        parsed.scheme and parsed.netloc and f"{parsed.scheme}://{parsed.netloc}" == host
+    )
+
+
+def _rate_limited(ip: str) -> bool:
+    now = monotonic()
+    window = app.config['RATELIMIT_WINDOW']
+    max_hits = app.config['RATELIMIT_MAX']
+    q = _rate_limits.setdefault(ip, deque())
+    while q and now - q[0] > window:
+        q.popleft()
+    if len(q) >= max_hits:
+        return True
+    q.append(now)
+    return False
+
+
 @app.route('/send', methods=['POST'])
 def handle_send():
     # Simple honeypot: bots often fill hidden fields
@@ -141,6 +183,15 @@ def handle_send():
     if hp:
         app.logger.info('Honeypot triggered; dropping submission')
         return redirect(url_for('thanks'), code=303)
+
+    if not _same_origin():
+        app.logger.warning('Rejected submission: origin mismatch')
+        return abort(400, description='Invalid origin')
+
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr or 'unknown').split(',')[0].strip()
+    if _rate_limited(ip):
+        app.logger.warning('Rate limit exceeded for %s', ip)
+        return abort(429, description='Too many submissions, try again later')
 
     name = _clean_header_value(request.form.get('name', ''))
     email = _clean_header_value(request.form.get('email', ''))
@@ -178,6 +229,20 @@ def root_index():
 def add_headers(resp: Response) -> Response:
     resp.headers.setdefault('X-Content-Type-Options', 'nosniff')
     resp.headers.setdefault('Referrer-Policy', 'same-origin')
+    resp.headers.setdefault('X-Frame-Options', 'DENY')
+    resp.headers.setdefault(
+        'Permissions-Policy',
+        'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()',
+    )
+    csp = (
+        "default-src 'self'; "
+        "img-src 'self' data:; "
+        "style-src 'self' 'unsafe-inline'; "
+        "script-src 'self' 'unsafe-inline' https://plausible.io https://www.googletagmanager.com; "
+        "connect-src 'self' https://plausible.io https://www.google-analytics.com https://region1.google-analytics.com; "
+        "form-action 'self';"
+    )
+    resp.headers.setdefault('Content-Security-Policy', csp)
     if request.path.startswith(('/assets/', '/style.css')):
         resp.cache_control.public = True
         resp.cache_control.max_age = 86400

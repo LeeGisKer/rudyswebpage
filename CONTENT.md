@@ -8,6 +8,7 @@ Fill these fields to fully populate the site. Keep wording concise (2–3 senten
 - Tagline: short promise (e.g., “Practical remodels with clean finishes.”)
 - Licensing status: **Independent contractor; not state-licensed. Permits handled via licensed partner GCs.**
 - Insurance status: describe honestly (e.g., “General liability policy — provide details” or “No coverage”)
+- Rate limit: submissions per hour (set env `FORM_MAX_SUBMISSIONS_PER_HOUR`, default 5)
 
 ## Contact
 - Email (public): `hello@rudyconstruction.example`
